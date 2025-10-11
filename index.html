@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apna Chartered Accountant</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Apna CA</h1>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#calculator">Calculator</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <h2>Your Trusted Partner in Tax & Finance</h2>
+    <p>We simplify your accounting, so you can focus on growth.</p>
+    <button onclick="scrollToSection('contact')">Get in Touch</button>
+  </section>
+
+  <section id="services">
+    <h2>Our Services</h2>
+    <div class="service-list">
+      <div class="service-card">
+        <h3>Tax Filing</h3>
+        <p>Quick and accurate income tax filing with expert support.</p>
+      </div>
+      <div class="service-card">
+        <h3>GST Registration</h3>
+        <p>End-to-end assistance with GST registration and filing.</p>
+      </div>
+      <div class="service-card">
+        <h3>Business Setup</h3>
+        <p>Start your business with proper financial guidance.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="calculator">
+    <h2>Quick Tax Calculator</h2>
+    <div class="calc-box">
+      <label>Enter your annual income (₹):</label>
+      <input type="number" id="income" placeholder="e.g. 600000" />
+      <button onclick="calculateTax()">Calculate</button>
+      <p id="result"></p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form onsubmit="return submitForm()">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <textarea id="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 Apna Chartered Accountant. All Rights Reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
