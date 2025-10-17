@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sign in with Google</title>
+    <style>
+      body {font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#f3f4f6}
+      .card {background:#fff;padding:28px;border-radius:12px;box-shadow:0 6px 20px rgba(2,6,23,0.08);width:360px;text-align:center}
+      img.avatar{width:72px;height:72px;border-radius:999px;margin-bottom:12px}
+      .btn {display:inline-block;padding:8px 14px;border-radius:8px;border:0;cursor:pointer;font-weight:600}
+      .hidden{display:none}
+    </style>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+  </head>
+  <body>
+    <div class="card">
+      <h2>Welcome</h2>
+      <div id="g_id_button"></div>
+      <div id="signed-in" class="hidden">
+        <img id="avatar" class="avatar" src="" alt="avatar">
+        <div id="name"></div>
+        <div id="email" style="color:#6b7280;margin-bottom:12px"></div>
+        <button id="signout" class="btn">Sign out</button>
+      </div>
+    </div>
+    <script>
+  const CLIENT_ID = '888571166359-n1v15q0r52khk46iesbne2f8nc2ssj0j.apps.googleusercontent.com';
+
+  function decodeJwtResponse(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+  }
+
+  // --- THIS IS THE CORRECT, SINGLE FUNCTION ---
+  function handleCredentialResponse(response) {
+    // 1. Decode the token to get user info
+    const payload = decodeJwtResponse(response.credential);
+
+    // 2. Update the UI
+    document.getElementById('avatar').src = payload.picture || '';
+    document.getElementById('name').textContent = payload.name || '';
+    document.getElementById('email').textContent = payload.email || '';
+    document.getElementById('g_id_button').classList.add('hidden');
+    document.getElementById('signed-in').classList.remove('hidden');
+
+    // 3. Save user info to local storage
+    localStorage.setItem('user', JSON.stringify(payload));
+
+    // 4. Send the token to your backend
+    fetch('/tokensignin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id_token: response.credential
+        })
+      })
+      .then(res => {
+        if (!res.ok) {
+          console.error("Backend token verification failed.");
+        }
+        // 5. Redirect to the main page after backend call is finished
+        window.location.href = '/';
+      })
+      .catch(error => {
+        console.error("Error sending token to backend:", error);
+        // Still redirect even if backend fails, or handle error differently
+        window.location.href = '/';
+      });
+  }
+
+  window.onload = () => {
+    google.accounts.id.initialize({
+      client_id: CLIENT_ID,
+      callback: handleCredentialResponse
+    });
+    google.accounts.id.renderButton(document.getElementById('g_id_button'), {
+      theme: 'outline',
+      size: 'large'
+    });
+    google.accounts.id.prompt(); // Attempt to sign in automatically
+
+    document.getElementById('signout').addEventListener('click', () => {
+      // Clear user data and update UI
+      localStorage.removeItem('user');
+      document.getElementById('signed-in').classList.add('hidden');
+      document.getElementById('g_id_button').classList.remove('hidden');
+      
+      // Prevent automatic sign-in on next page load
+      google.accounts.id.disableAutoSelect();
+    });
+  };
+</script>
+  </body>
+</html>
