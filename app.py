@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from pymongo import MongoClient
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
 import datetime
@@ -11,11 +10,6 @@ CORS(app)
 
 # --- Google OAuth Config ---
 CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "362952582119-n3pib5i1qe57tvv9ksh574uoo9rnf0cf.apps.googleusercontent.com")
-
-# --- MongoDB Connection ---
-client = MongoClient("mongodb://localhost:27017/")
-db = client["NimbusCast"]
-users_collection = db["users"]
 
 # --- Route for Google Sign-In ---
 @app.route("/tokensignin", methods=["POST"])
