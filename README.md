@@ -11,7 +11,7 @@ Perfect for beginners who want to practice basic web development concepts.
 You can host this on **GitHub Pages**, **Vercel**, or **Netlify** for free.  
 Example URL after deployment:
 ```
-https://yourusername.github.io/apna-chartered-accountant/
+https://yourusername.github.io/apna-CA/
 ```
 
 ---
@@ -41,7 +41,7 @@ apna-chartered-accountant/
 
 ### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/yourusername/apna-chartered-accountant.git
+git clone https://github.com/yourusername/apna-ca.git
 ```
 
 ### 2️⃣ Open the project
