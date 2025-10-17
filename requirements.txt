@@ -1,0 +1,6 @@
+## 📦 Requirements  
+
+- Python 3.8+  
+- Flask  
+- Requests  
+- Strong WiFi connection
