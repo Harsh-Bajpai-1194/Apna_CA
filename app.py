@@ -16,7 +16,7 @@ CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "888571166359-n1v15q0r52khk46iesbne2f8
 @app.route("/")
 def login_page():
     """Serves the Google Login page."""
-    return render_template("login.html")
+    return render_template(login.html")
 
 # --- Protected route that serves the main site ---
 @app.route("/home")
