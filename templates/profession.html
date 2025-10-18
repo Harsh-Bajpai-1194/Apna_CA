@@ -6,7 +6,110 @@
     <title>Document</title>
 </head>
 <body>
-    <div   id="who ">
+    <div   id="who "><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Who You Are</title>
+  <style>
+    body {
+      background: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+
+    #who {
+      position: absolute;
+      top: 30%;
+      left: 30%;
+      height: 250px;
+      width: 400px;
+      text-align: center;
+      border: 2px solid #ccc;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      background: white;
+    }
+
+    p {
+      color: green;
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .ele {
+      margin-top: 15px;
+      padding: 8px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .ele:hover {
+      border: 1px solid blue;
+      background-color: #eaf1ff;
+    }
+
+    input[type="radio"] {
+      transform: scale(1.2);
+      margin-right: 8px;
+      cursor: pointer;
+    }
+
+    #btn {
+      margin-top: 20px;
+      height: 40px;
+      width: 120px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #btn:hover {
+      background-color: green;
+    }
+  </style>
+</head>
+<body>
+  <div id="who">
+    <p>Who are you?</p>
+
+    <div class="ele">
+      <label><input type="radio" name="identity" value="startup"> Startup / Organization</label>
+    </div>
+
+    <div class="ele">
+      <label><input type="radio" name="identity" value="self-finance"> Self-finance</label>
+    </div>
+
+ <button id="btn">NEXT</button>
+ </div>
+
+<script>
+    document.getElementById('btn').addEventListener('click', () => {
+      const selected = document.querySelector('input[name="identity"]:checked');
+      
+      if (selected !== null) {
+        // Redirect to your target page
+        window.location.href = "index.html";
+      } else {
+        alert("Please select one option before proceeding!");
+      }
+    });
+  </script>
+
+ 
+
+  
+ 
+</body>
+</html>
+
         <p>who you are ?</p>
         
            <div> <input type="checkbox">startup/organization</div>
