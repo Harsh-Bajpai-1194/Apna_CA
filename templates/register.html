@@ -1,1 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in with Google</title>
+  <style>
+    body {
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: #f3f4f6;
+    }
+
+    .card {
+      background: #fff;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(2,6,23,0.08);
+      width: 360px;
+      text-align: center;
+    }
+
+    img.avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .hidden { display: none; }
+
+    .details {
+      margin: 10px;
+      padding: 10px;
+      width: calc(100% - 44px); /* full width accounting for margin & padding */
+      border: 2px solid transparent;
+      border-radius: 8px;
+      transition: border 0.2s;
+      font-size: 16px;
+    }
+
+    .details:hover {
+      border-color: green;
+    }
+
+    #login {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    #login a {
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    #login a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <div class="card">
+    <h2>Welcome to APNA CA</h2>
+
+    <form>
+      <input class="details" name="username" type="text" placeholder="USERNAME or email" /><br>
+      <input class="details" id="password" name="password" type="password" placeholder="Password" />
+    </form>
+
+    <!-- Next button (hidden initially) -->
+    <button id="nextBtn" class="btn hidden">Next</button>
+
+    <p><b>OR</b></p>
+
+    <div id="g_id_button"></div>
+
+    <div >login with google</div>
+
+    <span id="login">Signup go to ->!<a href="login.html"> SIGNUP</a></span>
+  </div>
+
+  
+    }
+
+   
+
+      
+<script> const CLIENT_ID = '888571166359-n1v15q0r52khk46iesbne2f8nc2ssj0j.apps.googleusercontent.com';
+
+    function decodeJwtResponse(token) {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      return JSON.parse(jsonPayload);
+    }
+
+    function handleCredentialResponse(response) {
+      const payload = decodeJwtResponse(response.credential);
+
+      document.getElementById('avatar').src = payload.picture || '';
+      document.getElementById('name').textContent = payload.name || '';
+      document.getElementById('email').textContent = payload.email || '';
+      document.getElementById('g_id_button').classList.add('hidden');
+      document.getElementById('signed-in').classList.remove('hidden');
+
+      localStorage.setItem('user', JSON.stringify(payload));
+
+      fetch('/tokensignin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id_token: response.credential })
+      })
+      .then(res => {
+        if (!res.ok) console.error("Backend token verification failed.");
+        window.location.href = '/';
+      })
+      .catch(err => {
+        console.error("Error sending token to backend:", err);
+        window.location.href = '/';
+      });
+    }
+
+    window.onload = () => {
+      // Restore signed-in user
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        document.getElementById('avatar').src = user.picture || '';
+        document.getElementById('name').textContent = user.name || '';
+        document.getElementById('email').textContent = user.email || '';
+        document.getElementById('g_id_button').classList.add('hidden');
+        document.getElementById('signed-in').classList.remove('hidden');
+      }
+
+      google.accounts.id.initialize({
+        client_id: CLIENT_ID,
+        callback: handleCredentialResponse
+      });
+      // Next button functionality
+      const passwordInput = document.getElementById('password');
+      const nextBtn = document.getElementById('nextBtn');
+
+      passwordInput.addEventListener('input', () => {
+        if (passwordInput.value.trim() !== '') {
+          nextBtn.classList.remove('hidden');
+        } else {
+          nextBtn.classList.add('hidden');
+        }
+      });
+
+      nextBtn.addEventListener('click', () => {
+        const username = document.querySelector('input[name="username"]').value;
+        const password = passwordInput.value;
+        localStorage.setItem('userForm', JSON.stringify({ username, password }));
+        window.location.href = 'profession.html';
+      });
+    
+  </script>
+</body>
+</html>
 
