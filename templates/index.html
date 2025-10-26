@@ -5,154 +5,120 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Apna CA</title>
   <style>
-    /* --- CSS STYLES --- */
-    * { 
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+    body { background: #f4f6f6; color: #222; scroll-behavior: smooth; }
 
-    body {
-      scroll-behavior: smooth;
-    }
-
+    /* ---------- HEADER ---------- */
     header {
       background: #004d40;
       color: white;
-      padding: 15px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 15px 30px;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 10;
     }
-
-    nav ul {
-      display: flex;
-      list-style: none;
-      align-items: center;
+    header h1 { font-size: 1.5rem; }
+    nav ul { list-style: none; display: flex; gap: 15px; align-items: center; }
+    nav a {
+      color: white; text-decoration: none;
+      padding: 6px 12px; border-radius: 5px; transition: 0.3s;
     }
+    nav a:hover { background: #00796b; }
 
-    nav ul li a {
-      color: white;
-      text-decoration: none;
-      padding: 8px 15px;
+    /* ---------- PROFILE ---------- */
+    .profile { position: relative; display: inline-block; }
+    .profile img {
+      width: 40px; height: 40px; border-radius: 50%;
+      cursor: pointer; border: 2px solid white; transition: 0.3s;
+    }
+    .profile img:hover { transform: scale(1.05); }
+    .dropdown {
+      display: none; position: absolute; top: 50px; right: 0;
+      background: white; color: #004d40; border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 180px; overflow: hidden;
+    }
+    .dropdown button {
+      display: block; width: 100%; text-align: left;
+      padding: 10px 15px; background: none; border: none;
+      color: #004d40; font-size: 0.95rem; cursor: pointer; transition: 0.3s;
+    }
+    .dropdown button:hover { background: #e0f2f1; }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      background: #e0f2f1; text-align: center; padding: 80px 20px;
+    }
+    .hero h2 { font-size: 2rem; margin-bottom: 10px; color: #004d40; }
+    .hero p { color: #333; font-size: 1rem; }
+    .hero button {
+      margin-top: 20px; padding: 10px 20px;
+      background: #004d40; color: white; border: none; border-radius: 5px; cursor: pointer;
       transition: 0.3s;
     }
+    .hero button:hover { background: #00796b; }
 
-    nav ul li a:hover {
-      background: #00796b;
-      border-radius: 5px;
-    }
-
-    .hero {
-      background: #e0f2f1;
-      text-align: center;
-      padding: 80px 20px;
-    }
-
-    .hero button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: #004d40;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .hero button:hover {
-      background: #00796b;
-    }
-
-    section {
-      padding: 60px 20px;
-      text-align: center;
-    }
-
+    /* ---------- SERVICES ---------- */
+    section { padding: 60px 20px; text-align: center; }
     .service-list {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 30px;
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 30px;
     }
-
     .service-card {
-      background: #fafafa;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      width: 250px;
-      padding: 20px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      background: #ffffff; border: 1px solid #ccc; border-radius: 10px;
+      width: 260px; padding: 20px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      transition: 0.3s; cursor: pointer;
     }
+    .service-card:hover { transform: scale(1.05); box-shadow: 0 5px 10px rgba(0,0,0,0.15); }
 
+    /* ---------- CALCULATOR ---------- */
     .calc-box {
-      background: #fafafa;
-      border-radius: 10px;
-      padding: 30px;
-      max-width: 350px;
-      margin: 0 auto;
+      background: #ffffff; border-radius: 10px; padding: 30px;
+      max-width: 350px; margin: 0 auto;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
     }
-
     .calc-box input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
+      width: 100%; padding: 10px; margin: 10px 0;
+      border: 1px solid #ccc; border-radius: 5px;
     }
-
-    button {
-      background: #004d40;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 10px 15px;
-      cursor: pointer;
+    .calc-box button {
+      background: #004d40; color: white; border: none; border-radius: 5px;
+      padding: 10px 15px; cursor: pointer; transition: 0.3s;
     }
+    .calc-box button:hover { background: #00796b; }
 
-    button:hover {
-      background: #00796b;
-    }
-
+    /* ---------- CONTACT ---------- */
     form {
-      max-width: 400px;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
+      max-width: 400px; margin: auto;
+      display: flex; flex-direction: column; gap: 15px;
     }
-
-    input,
-    textarea {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+    input, textarea {
+      padding: 10px; border: 1px solid #ccc; border-radius: 5px;
     }
+    form button {
+      background: #004d40; color: white; border: none;
+      border-radius: 5px; padding: 10px 15px; cursor: pointer;
+    }
+    form button:hover { background: #00796b; }
 
+    /* ---------- FOOTER ---------- */
     footer {
-      background: #004d40;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 30px;
+      background: #004d40; color: white; text-align: center;
+      padding: 20px; margin-top: 40px;
     }
 
     @media (max-width: 768px) {
-      .service-list {
-        flex-direction: column;
-        align-items: center;
-      }
-      header {
-        flex-direction: column;
-        gap: 10px;
-      }
+      header { flex-direction: column; gap: 10px; text-align: center; }
+      .service-list { flex-direction: column; align-items: center; }
+      .dropdown { right: 50%; transform: translateX(50%); }
     }
   </style>
 </head>
 <body>
+
+  <!-- HEADER -->
   <header>
     <h1>Apna CA</h1>
     <nav>
@@ -161,42 +127,38 @@
         <li><a href="#services">Services</a></li>
         <li><a href="#calculator">Calculator</a></li>
         <li><a href="#contact">Contact</a></li>
-        
-        <!--
-        {% if user %}
-          <li style="margin-left:20px; color: #b2dfdb;">Welcome, {{ user.name.split()[0] }}</li>
-          <li><a href="{{ url_for('logout') }}" style="background-color:#c62828; margin-left:15px; border-radius:5px;">Logout</a></li>
-        {% endif %}
-        -->
-
       </ul>
     </nav>
+
+    <div class="profile" onclick="toggleDropdown()">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile">
+      <div class="dropdown" id="profileDropdown">
+        <button onclick="viewProfile()">👤 View Profile</button>
+        <button onclick="settings()">⚙️ Settings</button>
+        <button onclick="editProfile()">✏️ Edit Profile</button>
+        <button onclick="logout()">🚪 Sign Out</button>
+      </div>
+    </div>
   </header>
 
+  <!-- HERO SECTION -->
   <section id="home" class="hero">
     <h2>Your Trusted Partner in Tax & Finance</h2>
     <p>We simplify your accounting, so you can focus on growth.</p>
     <button onclick="scrollToSection('contact')">Get in Touch</button>
   </section>
 
+  <!-- SERVICES -->
   <section id="services">
     <h2>Our Services</h2>
     <div class="service-list">
-      <div class="service-card">
-        <h3>Tax Filing</h3>
-        <p>Quick and accurate income tax filing with expert support.</p>
-      </div>
-      <div class="service-card">
-        <h3>GST Registration</h3>
-        <p>End-to-end assistance with GST registration and filing.</p>
-      </div>
-      <div class="service-card">
-        <h3>Business Setup</h3>
-        <p>Start your business with proper financial guidance.</p>
-      </div>
+      <div class="service-card"><h3>Tax Filing</h3><p>Quick and accurate income tax filing.</p></div>
+      <div class="service-card"><h3>GST Registration</h3><p>Easy GST registration & filing.</p></div>
+      <div class="service-card"><h3>Business Setup</h3><p>Start your business right.</p></div>
     </div>
   </section>
 
+  <!-- CALCULATOR -->
   <section id="calculator">
     <h2>Quick Tax Calculator</h2>
     <div class="calc-box">
@@ -207,6 +169,7 @@
     </div>
   </section>
 
+  <!-- CONTACT -->
   <section id="contact">
     <h2>Contact Us</h2>
     <form onsubmit="return submitForm()">
@@ -217,44 +180,55 @@
     </form>
   </section>
 
-  <footer>
-    <p>© 2025 Apna CA. All Rights Reserved.</p>
-  </footer>
+  <!-- FOOTER -->
+  <footer><p>© 2025 Apna CA. All Rights Reserved.</p></footer>
 
+  <!-- JAVASCRIPT -->
   <script>
+    function toggleDropdown() {
+      const dropdown = document.getElementById("profileDropdown");
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+
+    window.onclick = function(e) {
+      if (!e.target.matches('.profile img')) {
+        document.getElementById("profileDropdown").style.display = "none";
+      }
+    };
+
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+    }
+
+    function viewProfile() { alert("Profile Page Coming Soon!"); }
+    function settings() { alert("Settings Page Coming Soon!"); }
+    function editProfile() { alert("Edit Profile Feature Coming Soon!"); }
+
+    function logout() {
+      alert("Logging out...");
+      window.location.href = "index.html";
+    }
+
     function calculateTax() {
       const income = parseFloat(document.getElementById("income").value);
       const resultEl = document.getElementById("result");
-      let tax = 0;
-
       if (isNaN(income) || income < 0) {
         resultEl.innerText = "Please enter a valid amount!";
         return;
       }
-
+      let tax = 0;
       if (income <= 250000) tax = 0;
       else if (income <= 500000) tax = 0.05 * (income - 250000);
       else if (income <= 1000000) tax = 12500 + 0.2 * (income - 500000);
       else tax = 112500 + 0.3 * (income - 1000000);
-
       resultEl.innerText = `Estimated Tax: ₹ ${tax.toFixed(2)}`;
     }
 
     function submitForm() {
       const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const msg = document.getElementById("message").value.trim();
-
-      if (name && email && msg) {
-        alert(`Thank you, ${name}! We have received your message and will get in touch soon.`);
-        document.querySelector("form").reset();
-      }
-
+      alert(`Thank you, ${name}! We'll contact you soon.`);
+      document.querySelector("form").reset();
       return false;
-    }
-
-    function scrollToSection(id) {
-      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
     }
   </script>
 </body>
