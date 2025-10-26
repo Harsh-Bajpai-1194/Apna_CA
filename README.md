@@ -119,8 +119,3 @@ If you like this project, give it a ⭐ on GitHub!
 *(Add screenshot after you finish your design)*
 
 ---
-
-### 🧾 License
-This project is licensed under the **MIT License** — feel free to use and modify it.
-
----
