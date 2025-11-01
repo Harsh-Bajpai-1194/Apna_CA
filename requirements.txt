@@ -1,6 +1,7 @@
-## 📦 Requirements  
-
-- Python 3.8+  
-- Flask  
-- Requests  
-- Strong WiFi connection
+Flask
+google-auth
+Flask-cors
+requests
+google-auth-oauthlib
+google-auth-httplib2
+Flask-Session
