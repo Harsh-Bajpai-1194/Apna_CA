@@ -116,6 +116,5 @@ If you like this project, give it a ⭐ on GitHub!
 ---
 
 ### 📸 Preview
-*(Add screenshot after you finish your design)*
-
+![Apna CA Website Screenshot](./assets/screenshot.png)
 ---
