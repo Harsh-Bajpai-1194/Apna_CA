@@ -116,5 +116,5 @@ If you like this project, give it a ⭐ on GitHub!
 ---
 
 ### 📸 Preview
-![Apna CA Website Screenshot](./assets/home_page.png)
+![Apna CA Website Screenshot](./assets/home_page.jpg)
 ---
