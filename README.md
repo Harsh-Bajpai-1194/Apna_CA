@@ -1,8 +1,8 @@
 # 🧾 Apna CA
 
-Author - HARSH BAJPAI
-Collaborator - Hani Dwivedi
-Created on 11-10-2025
+Author - HARSH BAJPAI  
+Collaborator - Hani Dwivedi  
+Created on 11-10-2025  
 **Apna Chartered Accountant** is a simple **frontend-only web project** built using **HTML, CSS, and JavaScript**.  
 It showcases a professional online CA service website with sections for services, a tax calculator, and a contact form.  
 Perfect for beginners who want to practice basic web development concepts.
@@ -66,12 +66,12 @@ Then open 👉 [http://localhost:5000](http://localhost:5000)
 ## 🧮 Tax Calculator Logic
 Tax slabs used (simplified for FY 2024-25):
 
-| Income Range (₹)     | Tax Rate  |
-|----------------------|-----------|
-| Up to ₹2,50,000      | 0%        |
-| ₹2,50,001 – ₹5,00,000| 5%        |
-| ₹5,00,001 – ₹10,00,000| 20%      |
-| Above ₹10,00,000     | 30%       |
+|   Income Range (₹)    |  Tax Rate  |
+|-----------------------|------------|
+| Up to ₹2,50,000       |    0%      |
+| ₹2,50,001 – ₹5,00,000 |    5%      |
+| ₹5,00,001 – ₹10,00,000|    20%     |
+| Above ₹10,00,000      |    30%     |
 
 The logic is implemented in `script.js`.
 
