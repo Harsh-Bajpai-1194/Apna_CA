@@ -3,14 +3,12 @@ from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
 import os
 
-app = Flask(__name__) # No need for template_folder, "templates" is the default
+app = Flask(__name__) 
 
 # A secret key is required to use Flask sessions
-# Use a real, random string in production
 app.secret_key = os.urandom(24) 
 
 # --- Google OAuth Config ---
-# Your Client ID is already here
 CLIENT_ID = "888571166359-n1v15q0r52khk46iesbne2f8nc2ssj0j.apps.googleusercontent.com"
 
 # --- 1. Login Page Route ---
@@ -29,7 +27,7 @@ def login_page():
 @app.route("/app")
 def app_page():
     """
-    Serves the main "Apna CA" page.
+    Serves the main "Apna CA" page (index.html).
     If the user is NOT logged in, redirect them back to the login page.
     """
     if 'user' not in session:
@@ -38,7 +36,20 @@ def app_page():
     # Pass the user's info from the session to the template
     return render_template("index.html", user=session['user'])
 
-# --- 3. Google Token Verification Route ---
+# --- 3. NEW: Dashboard Page Route (Protected) ---
+@app.route("/dashboard")
+def dashboard_page():
+    """
+    Serves the "Dashboard" page.
+    This is also protected. If not logged in, redirect to login.
+    """
+    if 'user' not in session:
+        return redirect(url_for('login_page'))
+        
+    # Pass the user's info to the dashboard template
+    return render_template("dashboard.html", user=session['user'])
+
+# --- 4. Google Token Verification Route ---
 @app.route("/tokenlogin", methods=["POST"])
 def token_login():
     """
@@ -60,13 +71,14 @@ def token_login():
         # Send a success status. The client will handle the redirect.
         return jsonify({"status": "success"})
     
-    except ValueError:
+    except ValueError as e:  # <-- Add "as e"
         # Invalid token
+        print(f"Token verification failed with error: {e}")  # <-- Add this print line
         return jsonify({"error": "Invalid token"}), 401
     except Exception as e:
         return jsonify({"error": f"An internal server error occurred: {e}"}), 500
 
-# --- 4. Logout Route ---
+# --- 5. Logout Route ---
 @app.route('/logout')
 def logout():
     """Clears the session to log the user out."""
@@ -74,6 +86,5 @@ def logout():
     return redirect(url_for('login_page'))
 
 if __name__ == "__main__":
-    # IMPORTANT: Stop using Live Server. Run this file.
     # Access your app at: http://localhost:5000
     app.run(port=5000, debug=True)
