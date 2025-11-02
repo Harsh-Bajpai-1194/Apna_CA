@@ -115,17 +115,20 @@
                         id_token: response.credential
                     })
                 })
+                // ...
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        console.log("Backend session created.");
-                        // The user can now click "Continue"
+                        console.log("Backend session created. Redirecting...");
+
+                        // *** THIS IS THE FIX ***
+                        // Redirect to the app page *only after* the
+                        // backend confirms the session is created.
+                        window.location.href = '/app';
+
                     } else {
                         console.error("Backend token verification failed:", data.error);
                     }
-                })
-                .catch(error => {
-                    console.error("Error sending token to backend:", error);
                 });
         }
 
