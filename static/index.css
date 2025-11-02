@@ -1,0 +1,345 @@
+/* -----------------------------
+   GLOBAL RESET & BASE STYLES
+------------------------------*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #021526, #012a4a);
+    color: #e2e8f0;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+
+/* Smooth transitions globally */
+
+* {
+    transition: all 0.3s ease;
+}
+
+
+/* Scrollbar styling */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(#3b82f6, #22c55e);
+    border-radius: 6px;
+}
+
+
+/* -----------------------------
+   APP SHELL LAYOUT
+------------------------------*/
+
+.app-shell {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+/* -----------------------------
+   SIDEBAR STYLING
+------------------------------*/
+
+.sidebar {
+    width: 260px;
+    background: linear-gradient(180deg, #0f3b60, #021526);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px 18px;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.sidebar.expanded {
+    width: 80px;
+}
+
+
+/* Brand section */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.logo {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #22c55e, #3b82f6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+
+/* Navigation */
+
+.nav {
+    flex-grow: 1;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-item:hover {
+    background: rgba(59, 130, 246, 0.25);
+}
+
+.nav-item.active {
+    background: linear-gradient(90deg, #22c55e, #3b82f6);
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+}
+
+.label {
+    flex: 1;
+    font-weight: 500;
+}
+
+
+/* -----------------------------
+   AI BUTTON
+------------------------------*/
+
+.ai-btn {
+    margin-top: 20px;
+}
+
+.ai-toggle {
+    background: linear-gradient(135deg, #22c55e, #3b82f6);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.4);
+}
+
+.ai-toggle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+
+/* -----------------------------
+   MAIN CONTENT AREA
+------------------------------*/
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    overflow-y: auto;
+    backdrop-filter: blur(8px);
+}
+
+
+/* Top Bar */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px 20px;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+    margin-bottom: 25px;
+}
+
+.topbar h2 {
+    color: #22c55e;
+    font-size: 22px;
+}
+
+.btn {
+    background: linear-gradient(135deg, #3b82f6, #22c55e);
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.4);
+}
+
+
+/* -----------------------------
+   PANELS & CARDS
+------------------------------*/
+
+.main-panel {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.left-card,
+.right-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 18px;
+    padding: 20px;
+    flex: 1;
+    min-width: 300px;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+}
+
+.left-card:hover,
+.right-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.25);
+}
+
+.panel {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.panel--active {
+    display: block;
+}
+
+
+/* Panel Headings */
+
+h3 {
+    color: #3b82f6;
+    margin-bottom: 15px;
+}
+
+
+/* Item Rows */
+
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.item-row span {
+    color: #e2e8f0;
+    font-weight: 500;
+}
+
+.item-row small {
+    color: #94a3b8;
+}
+
+
+/* -----------------------------
+   AI MODAL
+------------------------------*/
+
+#aiModal div {
+    animation: popUp 0.3s ease;
+}
+
+#aiModal input {
+    border: 2px solid rgba(59, 130, 246, 0.4);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+#aiModal input::placeholder {
+    color: #9ca3af;
+}
+
+
+/* -----------------------------
+   ANIMATIONS
+------------------------------*/
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes popUp {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+/* -----------------------------
+   RESPONSIVE DESIGN
+------------------------------*/
+
+@media (max-width: 900px) {
+    .app-shell {
+        flex-direction: column;
+    }
+    .sidebar {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        padding: 10px;
+        height: 70px;
+    }
+    .brand .title {
+        display: none;
+    }
+    .nav {
+        display: flex;
+        gap: 10px;
+    }
+    .nav-item {
+        margin: 0;
+        padding: 8px 10px;
+    }
+    .main-panel {
+        flex-direction: column;
+    }
+}
