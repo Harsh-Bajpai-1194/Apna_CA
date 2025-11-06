@@ -98,7 +98,7 @@ def logout():
     return redirect(url_for('login_page'))
 
 # --- 6. Netlify Handler ---
-# This is the new entry point for Netlify
+# This is the new entry point for Netlify 
 def handler(event, context):
     """
     This uses serverless_wsgi to wrap your Flask app
