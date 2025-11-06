@@ -21,12 +21,29 @@ https://yourusername.github.io/apna-CA/
 
 ## 📁 Project Structure
 ```
-apna-chartered-accountant/
+Apna_CA/
+├── netlify/
+│   └── functions/
+│       └── api.py         <-- ALL your Python/Flask code goes here
 │
-├── index.html      # Main webpage
-├── style.css       # Styling and layout
-├── script.js       # Interactive logic (tax calc, form)
-└── README.md       # Project documentation
+├── static/
+│   ├── index.css
+│   └── login.js
+│
+├── templates/
+│   ├── dashboard.html
+│   ├── index.html
+│   ├── login.html
+│   ├── main.html
+│   ├── profession.html
+│   └── register.html
+│
+├── assets/
+│   └── home_page.png
+│
+├── netlify.toml         <-- Important config file
+├── requirements.txt
+└── README.md
 ```
 
 ---
