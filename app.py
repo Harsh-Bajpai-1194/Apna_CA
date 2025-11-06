@@ -67,7 +67,6 @@ def token_login():
             "email": idinfo["email"],
             "picture": idinfo.get("picture")
         }
-
         # Send a success status. The client will handle the redirect.
         return jsonify({"status": "success"})
     
