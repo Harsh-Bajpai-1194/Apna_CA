@@ -1,0 +1,23 @@
+# This is your new netlify.toml file
+[build]
+  # This command installs your Python packages
+  command = "pip install -r requirements.txt"
+  
+  # This is the directory Netlify will look for your serverless functions
+  functions = "netlify/functions"
+  
+  # This is your static folder, which Netlify can serve directly
+  publish = "static"
+
+[functions]
+  # This tells Netlify to include your templates/assets folders 
+  # in the serverless function bundle so Flask can find them.
+  included_files = ["templates/**", "assets/**"]
+
+[[redirects]]
+  # This is the "magic" part.
+  # It routes all incoming requests ("/*") to your new serverless function
+  # which will live at "/.netlify/functions/api"
+  from = "/*"
+  to = "/.netlify/functions/api"
+  status = 200

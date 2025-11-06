@@ -71,9 +71,9 @@ def token_login():
         # Send a success status. The client will handle the redirect.
         return jsonify({"status": "success"})
     
-    except ValueError as e:  # <-- Add "as e"
+    except ValueError as e:  # <-- Good, you added "as e"
         # Invalid token
-        print(f"Token verification failed with error: {e}")  # <-- Add this print line
+        print(f"Token verification failed with error: {e}")  # <-- Good, you added this
         return jsonify({"error": "Invalid token"}), 401
     except Exception as e:
         return jsonify({"error": f"An internal server error occurred: {e}"}), 500
@@ -85,6 +85,10 @@ def logout():
     session.pop('user', None)
     return redirect(url_for('login_page'))
 
-if __name__ == "__main__":
-    # Access your app at: http://localhost:5000
-    app.run(port=5000, debug=True)
+# --- THIS BLOCK IS NOW REMOVED ---
+#
+# if __name__ == "__main__":
+#     # Access your app at: http://localhost:5000
+#     app.run(port=5000, debug=True)
+#
+# ---------------------------------
