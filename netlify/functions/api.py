@@ -6,22 +6,13 @@ from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
 import os
 
-# --- CRITICAL CHANGE ---
-# We must tell Flask where to find the template/static folders,
-# because this 'api.py' file is in a different directory
-# ('../../' means "go up two directories" from /netlify/functions/)
 app = Flask(
     __name__,
     template_folder='../../templates',
     static_folder='../../static'
 )
-
-# --- All your code from app.py is now here ---
-
-# A secret key is required to use Flask sessions
 app.secret_key = os.urandom(24) 
 
-# --- Google OAuth Config ---
 CLIENT_ID = "888571166359-n1v15q0r52khk46iesbne2f8nc2ssj0j.apps.googleusercontent.com"
 
 # --- 1. Login Page Route ---
