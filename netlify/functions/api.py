@@ -1,10 +1,107 @@
-import serverless_wsgi
-from app import app  # This imports the 'app' object from your app.py
+# This file is now /netlify/functions/api.py
 
+import serverless_wsgi
+from flask import Flask, request, jsonify, render_template, session, redirect, url_for
+from google.oauth2 import id_token
+from google.auth.transport import requests as google_requests
+import os
+
+# --- CRITICAL CHANGE ---
+# We must tell Flask where to find the template/static folders,
+# because this 'api.py' file is in a different directory
+# ('../../' means "go up two directories" from /netlify/functions/)
+app = Flask(
+    __name__,
+    template_folder='../../templates',
+    static_folder='../../static'
+)
+
+# --- All your code from app.py is now here ---
+
+# A secret key is required to use Flask sessions
+app.secret_key = os.urandom(24) 
+
+# --- Google OAuth Config ---
+CLIENT_ID = "888571166359-n1v15q0r52khk46iesbne2f8nc2ssj0j.apps.googleusercontent.com"
+
+# --- 1. Login Page Route ---
+@app.route("/")
+def login_page():
+    """
+    Serves the login page.
+    If the user is already logged in (in the session), redirect them to the app.
+    """
+    if 'user' in session:
+        return redirect(url_for('app_page'))
+    
+    return render_template("login.html")
+
+# --- 2. Main App Page Route (Protected) ---
+@app.route("/app")
+def app_page():
+    """
+    Serves the main "Apna CA" page (index.html).
+    If the user is NOT logged in, redirect them back to the login page.
+    """
+    if 'user' not in session:
+        return redirect(url_for('login_page'))
+    
+    # Pass the user's info from the session to the template
+    return render_template("index.html", user=session['user'])
+
+# --- 3. Dashboard Page Route (Protected) ---
+@app.route("/dashboard")
+def dashboard_page():
+    """
+    Serves the "Dashboard" page.
+    This is also protected. If not logged in, redirect to login.
+    """
+    if 'user' not in session:
+        return redirect(url_for('login_page'))
+        
+    # Pass the user's info to the dashboard template
+    return render_template("dashboard.html", user=session['user'])
+
+# --- 4. Google Token Verification Route ---
+@app.route("/tokenlogin", methods=["POST"])
+def token_login():
+    """
+    Verifies the Google ID token sent from the frontend.
+    If valid, it creates a user session.
+    """
+    try:
+        token = request.json.get("id_token")
+        # Verify the token with Google
+        idinfo = id_token.verify_oauth2_token(token, google_requests.Request(), CLIENT_ID)
+
+        # Token is valid. Store user info in the session.
+        session['user'] = {
+            "name": idinfo["name"],
+            "email": idinfo["email"],
+            "picture": idinfo.get("picture")
+        }
+        # Send a success status. The client will handle the redirect.
+        return jsonify({"status": "success"})
+    
+    except ValueError as e:
+        # Invalid token
+        print(f"Token verification failed with error: {e}")
+        return jsonify({"error": "Invalid token"}), 401
+    except Exception as e:
+        return jsonify({"error": f"An internal server error occurred: {e}"}), 500
+
+# --- 5. Logout Route ---
+@app.route('/logout')
+def logout():
+    """Clears the session to log the user out."""
+    session.pop('user', None)
+    return redirect(url_for('login_page'))
+
+# --- 6. Netlify Handler ---
+# This is the new entry point for Netlify
 def handler(event, context):
-  """
-  This is the new entry point for Netlify.
-  It uses serverless_wsgi to wrap your Flask app
-  and handle the request.
-  """
-  return serverless_wsgi.handle_request(app, event, context)
+    """
+    This uses serverless_wsgi to wrap your Flask app
+    and handle the request.
+    """
+    return serverless_wsgi.handle_request(app, event, context)
