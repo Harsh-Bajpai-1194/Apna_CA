@@ -21,29 +21,40 @@ https://yourusername.github.io/apna-CA/
 
 ## 📁 Project Structure
 ```
-Apna_CA/
-├── netlify/
-│   └── functions/
-│       └── api.py         <-- ALL your Python/Flask code goes here
-│
-├── static/
-│   ├── index.css
-│   └── login.js
-│
-├── templates/
-│   ├── dashboard.html
+Apna_CA_MERN/
+├── client/                      # Frontend (React)
+│   ├── public/
+│   │   └── assets/              # Moved from root assets/
+│   │       └── home_page.png
+│   ├── src/
+│   │   ├── components/          # Reusable UI parts (navbars, footers)
+│   │   ├── pages/               # Converted from templates/
+│   │   │   ├── Dashboard.jsx    # formerly dashboard.html
+│   │   │   ├── Home.jsx         # formerly index.html
+│   │   │   ├── Login.jsx        # formerly login.html + login.js
+│   │   │   ├── Main.jsx         # formerly main.html
+│   │   │   ├── Profession.jsx   # formerly profession.html
+│   │   │   └── Register.jsx     # formerly register.html
+│   │   ├── App.css              # formerly static/index.css
+│   │   ├── App.jsx              # Main React component & Routing
+│   │   └── main.jsx             # React entry point
 │   ├── index.html
-│   ├── login.html
-│   ├── main.html
-│   ├── profession.html
-│   └── register.html
+│   ├── package.json             # Client dependencies
+│   └── vite.config.js           # (If using Vite)
 │
-├── assets/
-│   └── home_page.png
+├── server/                      # Backend (Node/Express)
+│   ├── config/
+│   │   └── db.js                # MongoDB connection
+│   ├── controllers/             # Logic moved from app.py functions
+│   ├── models/                  # MongoDB Schemas (Data structure)
+│   ├── routes/                  # API endpoints (converted from @app.route)
+│   ├── .env                     # Secrets (DB URI, JWT secret)
+│   ├── index.js                 # Main server entry point (formerly app.py)
+│   └── package.json             # Server dependencies
 │
-├── netlify.toml         <-- Important config file
-├── requirements.txt
-└── README.md
+├── .gitignore
+├── README.md
+└── package.json                 # (Optional) Root script to run both client/server
 ```
 
 ---
