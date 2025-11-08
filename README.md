@@ -14,7 +14,7 @@ Perfect for beginners who want to practice basic web development concepts.
 You can host this on **GitHub Pages**, **Vercel**, or **Netlify** for free.  
 Example URL after deployment:
 ```
-https://yourusername.github.io/apna-CA/
+https://Harsh-Bajpai-1194.github.io/apna-CA/
 ```
 
 ---
@@ -72,19 +72,19 @@ Apna_CA_MERN/
 
 ### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/yourusername/apna-ca.git
+git clone https://github.com/Harsh-Bajpai-1194/apna-ca.git
 ```
 
 ### 2️⃣ Open the project
 ```bash
-cd apna-chartered-accountant
+cd apna-ca
 ```
 
 ### 3️⃣ Run locally
 Open the `index.html` file directly in your browser  
 or use a simple live server:
-```bash
-npx serve
+```cmd
+npm run dev
 ```
 
 Then open 👉 [http://localhost:5000](http://localhost:5000)
