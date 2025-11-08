@@ -144,7 +144,7 @@ If you like this project, give it a ⭐ on GitHub!
 ---
 
 ### 📸 Preview
-![Apna_CA_Website_Screenshot](./assets/home_page.png)
+![Apna_CA_Website_Screenshot](./client/public/assets/home_page.png)
 ---
 
 
