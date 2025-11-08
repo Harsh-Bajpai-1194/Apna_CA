@@ -1,8 +1,0 @@
-Flask
-google-auth
-flask-cors
-requests
-google-auth-oauthlib
-google-auth-httplib2
-Flask-Session
-serverless-wsgi
