@@ -1,0 +1,102 @@
+/* client/src/pages/Login.css */
+
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #f3f4f6;
+}
+
+.login-card {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.login-card h2 {
+    margin-bottom: 30px;
+    color: #1f2937;
+}
+
+.google-btn-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+
+/* --- New Styles for "Signed In" State --- */
+
+.signed-in-view {
+    animation: fadeIn 0.4s ease;
+}
+
+.avatar-large {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.user-name {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.user-email {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+}
+
+.login-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.login-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-cancel {
+    background: #f3f4f6;
+    color: #333;
+}
+
+.btn-cancel:hover {
+    background: #e5e7eb;
+}
+
+.btn-continue {
+    background: #004d40;
+    /* Matches your theme */
+    color: white;
+}
+
+.btn-continue:hover {
+    background: #00796b;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: #f4f6f6;
+    color: #222;
+    scroll-behavior: smooth;
+}
+
+#root {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    /* Vite sometimes defaults this to center */
+}
