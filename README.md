@@ -81,13 +81,21 @@ cd apna-ca
 ```
 
 ### 3️⃣ Run locally
-Open the `index.html` file directly in your browser  
-or use a simple live server:
-```cmd
+Run these commands in VS Code Terminal
+```terminal
+# 1. Go into the client folder
+cd client
+
+# 2. Install the dependencies (this installs Vite)
+npm install
+
+# 3. Go back to the root folder
+cd ..
+
+# 4. Try running the app again
 npm run dev
 ```
-
-Then open 👉 [http://localhost:5000](http://localhost:5000)
+Then open 👉 [http://localhost:5173/](http://localhost:5173/)
 
 ---
 
