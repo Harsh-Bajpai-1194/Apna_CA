@@ -29,7 +29,7 @@ function Login() {
     // --- 3. CONTINUE TO APP: Send token to backend to finalize login ---
     const handleContinue = async () => {
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/google', {
+            const res = await axios.post('https://apna-ca-2cq5.onrender.com', {
                 id_token: tempUser.googleToken
             });
 
