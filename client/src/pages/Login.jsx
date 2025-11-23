@@ -22,15 +22,16 @@ function Login() {
         const decoded = jwtDecode(credentialResponse.credential);
         setTempUser({
             ...decoded,
-            googleToken: credentialResponse.credential // Keep the raw token for backend verification later
+            googleToken: credentialResponse.credential // We save the token HERE inside tempUser
         });
     };
 
     // --- 3. CONTINUE TO APP: Send token to backend to finalize login ---
     const handleContinue = async () => {
         try {
-            const res = await axios.post('https://apna-ca-2cq5.onrender.com', {
-                id_token: tempUser.googleToken
+            // FIX IS HERE: We access the token from 'tempUser.googleToken'
+            const res = await axios.post('http://localhost:5000/api/auth/google', {
+                token: tempUser.googleToken, 
             });
 
             const { token, user } = res.data;
@@ -40,7 +41,12 @@ function Login() {
 
         } catch (error) {
             console.error("Backend Login Failed:", error);
-            alert("Login failed. Please try again.");
+            // detailed error logging
+            if (error.response) {
+                console.error("Server Error Data:", error.response.data);
+                console.error("Server Status:", error.response.status);
+            }
+            alert("Login failed. Please check console for details.");
             setTempUser(null); // Reset UI on failure
         }
     };
@@ -70,11 +76,11 @@ function Login() {
                     /* --- STATE 2: Signed in, waiting to continue --- */
                     <div className="signed-in-view">
                         <img 
-    src={tempUser.picture} 
-    alt="Profile" 
-    className="avatar-large" 
-    referrerPolicy="no-referrer" 
-/>
+                            src={tempUser.picture} 
+                            alt="Profile" 
+                            className="avatar-large" 
+                            referrerPolicy="no-referrer" 
+                        />
                         <p className="user-name"><strong>{tempUser.name}</strong></p>
                         <p className="user-email">{tempUser.email}</p>
 

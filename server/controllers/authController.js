@@ -1,61 +1,72 @@
-const { OAuth2Client } = require('google-auth-library');
-const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+const { OAuth2Client } = require('google-auth-library');
 
-// Initialize Google Client
+// Initialize the Google Client
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-// @desc    Auth user with Google
-// @route   POST /api/auth/google
-// @access  Public
 const googleLogin = async(req, res) => {
-    const { id_token } = req.body;
-
     try {
-        // 1. Verify the token with Google
-        const ticket = await client.verifyIdToken({
-            idToken: id_token,
-            audience: process.env.GOOGLE_CLIENT_ID,
-        });
-        const payload = ticket.getPayload();
-        const { sub: googleId, email, name, picture } = payload;
+        const { token } = req.body;
 
-        // 2. Check if user already exists in our DB
-        let user = await User.findOne({ googleId });
+        // --- DEBUG LOGS (Check your VS Code Terminal when you login) ---
+        console.log("------------------------------------------------");
+        console.log("DEBUG: Login Request Received");
+        console.log("DEBUG: Token from Frontend:", token ? (token.substring(0, 15) + "...") : "UNDEFINED / NULL");
+        console.log("DEBUG: Client ID from .env:", process.env.GOOGLE_CLIENT_ID);
+        // -------------------------------------------------------------
 
-        if (user) {
-            // Optional: Update their details if they changed on Google
-            user.name = name;
-            user.picture = picture;
-            await user.save();
-        } else {
-            // Create new user if they don't exist
-            user = await User.create({
-                googleId,
-                email,
-                name,
-                picture,
-            });
+        if (!token) {
+            console.log("DEBUG ERROR: Token is missing!");
+            return res.status(400).json({ success: false, message: "No token provided" });
         }
 
-        // 3. Generate our own JWT token for the frontend to use
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-            expiresIn: '30d', // User stays logged in for 30 days
+        // Verify the token
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: process.env.GOOGLE_CLIENT_ID,
+        });
+
+        const payload = ticket.getPayload();
+        console.log("DEBUG: Verification Successful! User:", payload.email);
+
+        const { email, name, picture } = payload;
+
+        // 2. Check if user exists in DB
+        let user = await User.findOne({ email });
+
+        if (!user) {
+            console.log("DEBUG: Creating new user...");
+            user = await User.create({
+                name,
+                email,
+                image: picture,
+                password: Math.random().toString(36).slice(-8), // Dummy password for Google users
+            });
+        } else {
+            console.log("DEBUG: User found in DB.");
+        }
+
+        // 3. Generate JWT Token
+        const jwtToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+            expiresIn: '7d',
         });
 
         res.status(200).json({
             success: true,
-            token,
+            token: jwtToken,
             user: {
-                id: user._id,
+                _id: user._id,
                 name: user.name,
                 email: user.email,
-                picture: user.picture
-            }
+                image: user.image
+            },
         });
 
     } catch (error) {
-        console.error("Google Auth Error:", error);
+        console.log("------------------------------------------------");
+        console.error("DEBUG ERROR: Verification Failed:", error.message);
+        console.log("------------------------------------------------");
         res.status(401).json({ success: false, message: "Invalid Token" });
     }
 };
