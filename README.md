@@ -3,7 +3,7 @@
 Author - HARSH BAJPAI  
   
 Created on 11-10-2025  
-**Apna Chartered Accountant** is a simple **frontend-only web project** built using **HTML, CSS, JavaScript, MERN, Render and Vercel App**.  
+**Apna Chartered Accountant** is a simple **Full-Stack Web project** built using **HTML, CSS, JavaScript, MERN, Render and Vercel App**.  
 It showcases a professional online CA service website with sections for services, a tax calculator, and a contact form.  
 Perfect for beginners who want to practice basic web development concepts.
 
